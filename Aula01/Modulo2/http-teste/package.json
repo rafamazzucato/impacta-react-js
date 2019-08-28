@@ -1,0 +1,20 @@
+{
+  "name": "httpteste",
+  "version": "1.0.0",
+  "description": "Teste de servidor http na porta 3000",
+  "private": true,
+  "main": "app-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "http",
+    "3000"
+  ],
+  "author": "Rafael Mazzucato",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.0",
+    "mongoose": "^5.6.11"
+  }
+}
