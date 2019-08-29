@@ -3,13 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import json from './teste.json'
 
-import Image from './Image'
+import I from './Image'
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Image></Image>
+        <I></I>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
