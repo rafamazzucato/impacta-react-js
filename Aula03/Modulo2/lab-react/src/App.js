@@ -6,6 +6,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.min';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 import Menu from './menu'
+import Rotas from './rotas'
 
 function App() {
   return (
