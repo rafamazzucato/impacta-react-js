@@ -12,6 +12,7 @@ function App() {
   return (
     <div>
         <Menu/>
+        <Rotas/>
     </div>
   );
 }
