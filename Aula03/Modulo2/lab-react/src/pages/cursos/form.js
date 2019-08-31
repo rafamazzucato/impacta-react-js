@@ -10,13 +10,13 @@ export default class CursoForm extends React.Component {
         <h3 className="border-bottom">Formulario</h3>
         <form>
             <div className="form-group row">
-                <label htmlFor="data"
+                <label htmlFor="codigo"
                     className="col-sm-3 col-form-label">
-                    Data:
+                    Código:
 		    </label>
-                <div className="col-sm-5 col-6">
-                    <input type="date"
-                        className="form-control" id="data" value={props.data} onChange={props.dataInput} />
+                <div className="col-sm-9">
+                <input type="number"
+                            className="form-control" id="codigo" value={props.codigo} onChange={props.codigoInput} />
                 </div>
             </div>
 
@@ -32,30 +32,46 @@ export default class CursoForm extends React.Component {
             </div>
 
             <div className="form-group row">
-                <label htmlFor="responsavel"
+                <label htmlFor="cargaHoraria"
                     className="col-sm-3 col-form-label">
-                    Responsável:</label>
-                <div className="col-sm-5 col-6">
-                    <input type="text"
-                            className="form-control" id="responsavel" value={props.responsavel} onChange={props.responsavelInput} />
+                    Carga Horária:
+		    </label>
+                <div className="col-sm-9">
+                <input type="number"
+                            className="form-control" id="cargaHoraria" value={props.cargaHoraria} onChange={props.cargaHorariaInput} />
                 </div>
             </div>
 
             <div className="form-group row">
-                <label htmlFor="telefone"
+                <label htmlFor="preco"
                     className="col-sm-3 col-form-label">
-                    Telefone:</label>
-                <div className="col-sm-5 col-6">
-                    <input type="text"
-                            className="form-control" id="telefone" value={props.telefone} onChange={props.telefoneInput} />
+                    Preço:
+		    </label>
+                <div className="col-sm-9">
+                <input type="number" className="form-control" id="preco" value={props.preco} onChange={props.precoInput} />
+                </div>
+            </div>
+
+            <div className="form-group row">
+                <label htmlFor="categoria" className="col-sm-3 col-form-label">Categoria:</label>
+                <div className="col-sm-9">
+                    <select className="form-control" id="categoria"
+                        onChange={props.categoriaInput}
+                        value={props.categoria}>
+
+                        <option>INFORMATICA</option>
+                        <option>ENGENHARIA</option>
+                        <option>ADMINISTRACAO</option>
+                        <option>REDES</option>
+                    </select>
                 </div>
             </div>
 
 
             <div className="form-group row">
                 <button
-                        className="btn btn-primary ml-3 mb-3" onClick={props.adicionarCompromisso}>
-                    Adicionar
+                        className="btn btn-primary ml-3 mb-3" onClick={props.adicionarCurso}>
+                    { !props._id || props._id === '' ? 'Adicionar' : 'Atualizar' }
 			</button>
             </div>
 

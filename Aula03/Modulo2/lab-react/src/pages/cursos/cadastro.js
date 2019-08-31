@@ -7,10 +7,13 @@ const URL = 'http://localhost:3200/ws/cursos/'
 
 export default class CursoCadastro extends React.Component {
 
-    initialState = {data: '', 
+    initialState = {
+        _id : '',
+        codigo: 0, 
         descricao: '', 
-        responsavel: '', 
-        telefone: '',
+        cargaHoraria: 0, 
+        preco: 0.0,
+        categoria: 'INFORMATICA',
         cursos : []
     }
 
@@ -22,17 +25,20 @@ export default class CursoCadastro extends React.Component {
         this.getLista();
     }
 
-    dataInput(e) {
-        this.setState({ ...this.state, data: e.target.value })
+    codigoInput(e) {
+        this.setState({ ...this.state, codigo: e.target.value })
     }
     descricaoInput(e) {
         this.setState({ ...this.state, descricao: e.target.value })
     }
-    responsavelInput(e) {
-        this.setState({ ...this.state, responsavel: e.target.value })
+    cargaInput(e) {
+        this.setState({ ...this.state, cargaHoraria: e.target.value })
     }
-    telefoneInput(e) {
-        this.setState({ ...this.state, telefone: e.target.value })
+    precoInput(e) {
+        this.setState({ ...this.state, preco: e.target.value })
+    }
+    categoriaInput(e) {
+        this.setState({ ...this.state, categoria: e.target.value })
     }
 
     getLista(){
@@ -41,22 +47,92 @@ export default class CursoCadastro extends React.Component {
         })
     }
 
+    adicionaCurso(e){
+        e.preventDefault();
+
+        const {_id, codigo, descricao, cargaHoraria, preco, categoria} = this.state;
+
+        if((!codigo || codigo === 0)
+            || (!descricao || descricao === '')
+            || (!cargaHoraria || cargaHoraria === 0)
+            || (!preco || preco === 0)
+            || (!categoria || categoria === '')){
+                alert('Campos obrigatórios não preenchidos!')
+                return;
+        }
+
+        if(!_id || _id === ''){
+            axios.post(URL, { codigo, descricao, cargaHoraria, preco, categoria})
+            .then(_ => {
+                alert("Curso adicionado");
+                this.limpaForm();
+                this.getLista();
+            })
+            .catch(_ => alert("Não foi possível cadastrar curso."));
+        }else{
+            axios.put(URL+_id, { codigo, descricao, cargaHoraria, preco, categoria})
+            .then(_ => {
+                alert("Curso atualizado");
+                this.limpaForm();
+                this.getLista();
+            })
+            .catch(_ => alert("Não foi possível atualizar o curso."));
+        }
+
+    }
+
+    limpaForm(){
+        console.log(this.initialState)
+        this.setState(this.initialState);
+    }
+
+    deletaCurso(id){
+        if(!id || id === ''){
+            alert("Favor, selecionar o curso a ser deletado");
+            return
+        }
+
+        if(window.confirm('Deseja deletar o curso selecionado?')){
+            axios.delete(URL+id).then(_ =>{
+                alert("Curso deletado com sucesso.");
+                this.getLista();
+            }).catch(error =>{
+                console.log(error);
+                alert("Não foi possível deletar o curso selecionado.")
+            })
+        }   
+    }
+
+    selecionaCurso(curso){
+        this.setState({...this.state, 
+            _id : curso._id,
+            codigo: curso.codigo, 
+            cargaHoraria: curso.cargaHoraria, 
+            descricao: curso.descricao, 
+            categoria: curso.categoria, 
+            preco: curso.preco
+        })
+    }
+
     render(){
         return (
             <div className="row border-bottom ">
                 <div className="col-md-5">
                     <Form
-                        data={this.state.data}
+                        codigo={this.state.codigo}
                         descricao={this.state.descricao}
-                        responsavel={this.state.responsavel}
-                        telefone={this.state.telefone}
+                        cargaHoraria={this.state.cargaHoraria}
+                        preco={this.state.preco}
+                        categoria = {this.state.categoria}
+                        _id = {this.state._id}
                         
-                        responsavelInput={this.responsavelInput.bind(this)}
-                        dataInput={this.dataInput.bind(this)}
+                        cargaHorariaInput={this.cargaInput.bind(this)}
+                        codigoInput={this.codigoInput.bind(this)}
                         descricaoInput={this.descricaoInput.bind(this)}
-                        telefoneInput={this.telefoneInput.bind(this)}
+                        precoInput={this.precoInput.bind(this)}
+                        categoriaInput={this.categoriaInput.bind(this)}
                         
-                        // adicionarCurso={this.adicionarCurso}
+                        adicionarCurso={this.adicionaCurso.bind(this)}
                         >
                         
                     </Form>
@@ -64,8 +140,9 @@ export default class CursoCadastro extends React.Component {
                     
                 </div>
                 <div className="col-md-7">
-                    <List cursos={this.state.cursos}></List>
-                    {/* <CompromissoList cursos={this.state.Compromissos} /> */}
+                    <List cursos={this.state.cursos} 
+                        deletaCurso={this.deletaCurso.bind(this)}
+                        selecionaCurso={this.selecionaCurso.bind(this)}></List>
                 </div>
             </div> 
         )
