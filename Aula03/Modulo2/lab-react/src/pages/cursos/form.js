@@ -7,7 +7,7 @@ export default class CursoForm extends React.Component {
 
         return (
         <div className="border-right pl-3 pr-3">
-        <h3 className="border-bottom">Formulario</h3>
+        <h3 className="border-bottom">Formulário</h3>
         <form>
             <div className="form-group row">
                 <label htmlFor="codigo"

@@ -6,7 +6,7 @@ export default class Menu extends React.Component{
     render(){
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to='/'>Compromissos</Link>
+                <Link className="navbar-brand" to='/'>ABC Cursos</Link>
 
                 <button className="navbar-toggler" type="button"
                     data-toggle="collapse"
@@ -21,8 +21,8 @@ export default class Menu extends React.Component{
                     <ul className="navbar-nav mr-auto">
 
                         <li className="nav-item">
-                            <Link className="nav-link" to='/Compromisso'>
-                                Compromissos
+                            <Link className="nav-link" to='/Cursos'>
+                                Cursos
                             </Link>
                         </li>
                     </ul>

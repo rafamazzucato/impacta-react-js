@@ -117,7 +117,7 @@ export default class CursoCadastro extends React.Component {
     render(){
         return (
             <div className="row border-bottom ">
-                <div className="col-md-5">
+                <div className="col-md-4">
                     <Form
                         codigo={this.state.codigo}
                         descricao={this.state.descricao}
@@ -139,7 +139,7 @@ export default class CursoCadastro extends React.Component {
 
                     
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-8">
                     <List cursos={this.state.cursos} 
                         deletaCurso={this.deletaCurso.bind(this)}
                         selecionaCurso={this.selecionaCurso.bind(this)}></List>

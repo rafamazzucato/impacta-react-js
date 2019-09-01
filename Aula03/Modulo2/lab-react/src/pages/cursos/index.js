@@ -8,8 +8,8 @@ export default class Compromisso extends React.Component {
     render(){
         return (
             <div className="container">
-                <Cabecalho titulo="Compromisso"
-                    subtitulo=" entre em contato conosco"></Cabecalho>
+                <Cabecalho titulo="Cursos"
+                    subtitulo=" gerenciamento da plataforma de cursos"></Cabecalho>
                 <CompromissoCadastro/>
             </div>
         )
