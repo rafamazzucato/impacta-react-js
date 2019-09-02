@@ -1,9 +1,55 @@
 import React from 'react'
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+import {
+    codigoInput,
+    descricaoInput,
+    cargaHorariaInput,
+    precoInput,
+    categoriaInput,
+    adicionarCurso
+} from '../../actions/curso';
 
-export default class CursoForm extends React.Component {
+class CursoForm extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.salvaAtualizaCurso = this.salvaAtualizaCurso.bind(this);
+    }
+
+    salvaAtualizaCurso(e){
+        e.preventDefault();
+
+        const {_id, codigo, descricao, cargaHoraria, preco, categoria} = this.props;
+
+        if((!codigo || codigo === 0)
+            || (!descricao || descricao === '')
+            || (!cargaHoraria || cargaHoraria === 0)
+            || (!preco || preco === 0)
+            || (!categoria || categoria === '')){
+                alert('Campos obrigatórios não preenchidos!')
+                return;
+        }
+
+        if(!_id || _id === ''){
+            adicionarCurso(codigo, descricao, cargaHoraria, preco, categoria)
+            alert('Curso adicionado com sucesso');
+        }else{
+            // axios.put(URL+_id, { codigo, descricao, cargaHoraria, preco, categoria})
+            // .then(_ => {
+            //     alert("Curso atualizado");
+            //     this.limpaForm();
+            //     this.getLista();
+            // })
+            // .catch(_ => alert("Não foi possível atualizar o curso."));
+        }
+
+    }
+
 
     render(){
-        const props = this.props;
+        const {codigo, descricao, cargaHoraria, preco, categoria, codigoInput, descricaoInput, cargaHorariaInput, precoInput, categoriaInput} = this.props;
+        const props =this.props;
 
         return (
         <div className="border-right pl-3 pr-3">
@@ -16,7 +62,7 @@ export default class CursoForm extends React.Component {
 		    </label>
                 <div className="col-sm-9">
                 <input type="number"
-                            className="form-control" id="codigo" value={props.codigo} onChange={props.codigoInput} />
+                            className="form-control" id="codigo" value={codigo} onChange={codigoInput} />
                 </div>
             </div>
 
@@ -27,7 +73,7 @@ export default class CursoForm extends React.Component {
 		    </label>
                 <div className="col-sm-9">
                     <input type="text"
-                            className="form-control" id="descricao" value={props.descricao} onChange={props.descricaoInput} />
+                            className="form-control" id="descricao" value={descricao} onChange={descricaoInput} />
                 </div>
             </div>
 
@@ -38,7 +84,7 @@ export default class CursoForm extends React.Component {
 		    </label>
                 <div className="col-sm-9">
                 <input type="number"
-                            className="form-control" id="cargaHoraria" value={props.cargaHoraria} onChange={props.cargaHorariaInput} />
+                            className="form-control" id="cargaHoraria" value={cargaHoraria} onChange={cargaHorariaInput} />
                 </div>
             </div>
 
@@ -48,7 +94,7 @@ export default class CursoForm extends React.Component {
                     Preço:
 		    </label>
                 <div className="col-sm-9">
-                <input type="number" className="form-control" id="preco" value={props.preco} onChange={props.precoInput} />
+                <input type="number" className="form-control" id="preco" value={preco} onChange={precoInput} />
                 </div>
             </div>
 
@@ -56,8 +102,8 @@ export default class CursoForm extends React.Component {
                 <label htmlFor="categoria" className="col-sm-3 col-form-label">Categoria:</label>
                 <div className="col-sm-9">
                     <select className="form-control" id="categoria"
-                        onChange={props.categoriaInput}
-                        value={props.categoria}>
+                        onChange={categoriaInput}
+                        value={categoria}>
 
                         <option>INFORMATICA</option>
                         <option>ENGENHARIA</option>
@@ -70,7 +116,7 @@ export default class CursoForm extends React.Component {
 
             <div className="form-group row">
                 <button
-                        className="btn btn-primary ml-3 mb-3" onClick={props.adicionarCurso}>
+                        className="btn btn-primary ml-3 mb-3" onClick={this.salvaAtualizaCurso}>
                     { !props._id || props._id === '' ? 'Adicionar' : 'Atualizar' }
 			</button>
             </div>
@@ -80,3 +126,23 @@ export default class CursoForm extends React.Component {
         </div>)
     }
 }
+
+//padrão decorator
+const mapStateToProps = state => ({
+    codigo: state.curso.codigo,
+    descricao: state.curso.descricao,
+    cargaHoraria: state.curso.cargaHoraria,
+    preco: state.curso.preco,
+    categoria : state.curso.categoria
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    codigoInput,
+    descricaoInput,
+    cargaHorariaInput,
+    precoInput,
+    categoriaInput,
+    adicionarCurso
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CursoForm);
