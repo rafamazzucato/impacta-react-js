@@ -21,8 +21,14 @@ export default class Menu extends React.Component{
                     <ul className="navbar-nav mr-auto">
 
                         <li className="nav-item">
-                            <Link className="nav-link" to='/Cursos'>
+                            <Link className="nav-link" to='/cursos'>
                                 Cursos
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/contato'>
+                                Contato
                             </Link>
                         </li>
                     </ul>
