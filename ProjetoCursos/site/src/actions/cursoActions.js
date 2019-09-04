@@ -26,33 +26,20 @@ export const categoriaInput = e => ({
     info: e.target.value
 });
 
-export const adicionarCursoOld = (codigo, descricao, cargaHoraria, preco, categoria) => {
-    axios.post(URL, { codigo, descricao, cargaHoraria, preco, categoria});
-    return {
-        type: 'ADICIONAR_CURSO'
-    }
-}
-
-export const atualizarCursoOld = (_id, codigo, descricao, cargaHoraria, preco, categoria) => {
-    axios.put(URL+_id, { codigo, descricao, cargaHoraria, preco, categoria});
-    return {
-        type: 'ADICIONAR_CURSO'
-    }
-}
-
-export const excluirCursoOld = (_id) => {
-    axios.delete(URL+_id)
-    return {
-        type: 'ADICIONAR_CURSO'
-    }
-}
-
 export const adicionarCurso = (codigo, descricao, cargaHoraria, preco, categoria) => {
     return (dispatch) => {
         return axios.post(URL, { codigo, descricao, cargaHoraria, preco, categoria}).then(() =>{
-            dispatch(listaCursos())
+            dispatch(listaCursos(true))
+            dispatch({
+                type : 'DISPARA_ALERTA_INCLUIRALTERAR',
+                info: 'Curso criado com sucesso'
+            })
         }).catch((err) => {
             console.log(err);
+            dispatch({
+                type : 'DISPARA_ALERTA_INCLUIRALTERAR',
+                info: 'Ocorreu erro ao criar curso'
+            })
         })
     }
 };
@@ -60,7 +47,11 @@ export const adicionarCurso = (codigo, descricao, cargaHoraria, preco, categoria
 export const atualizarCurso = (_id, codigo, descricao, cargaHoraria, preco, categoria) => {
     return (dispatch) => {
         return axios.put(URL+_id, { codigo, descricao, cargaHoraria, preco, categoria}).then(() =>{
-            dispatch(listaCursos())
+            dispatch(listaCursos(true))
+            dispatch({
+                type : 'DISPARA_ALERTA_INCLUIRALTERAR',
+                info: 'Curso atualizado com sucesso'
+            })
         }).catch((err) => {
             console.log(err);
         })
@@ -70,7 +61,11 @@ export const atualizarCurso = (_id, codigo, descricao, cargaHoraria, preco, cate
 export const excluirCurso = (_id) => {
     return (dispatch) => {
         return axios.delete(URL+_id).then(() =>{
-            dispatch(listaCursos())
+            dispatch(listaCursos(false))
+            dispatch({
+                type : 'DISPARA_ALERTA_EXCLUIR',
+                info: 'Curso excluído com sucesso'
+            })
         }).catch((err) => {
             console.log(err);
         })
@@ -92,10 +87,15 @@ export let concluiGet = (cursos) => {
     }
 }
 
-export const listaCursos = () => {
+export const listaCursos = (cleanForm) => {
     return (dispatch) => {
         return axios.get(URL).then(
             (response) => {
+                if(cleanForm){
+                    dispatch({
+                        type : 'ADICIONAR_CURSO'
+                    })
+                }
                 const cursos = response.data
                 dispatch(concluiGet(cursos))
             },

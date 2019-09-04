@@ -5,7 +5,9 @@ const INITIAL_STATE = {
     cargaHoraria: 0, 
     preco: 0.0,
     categoria: 'INFORMATICA',
-    list : []
+    list : [],
+    alertInsertUpdate : '',
+    alertDelete : '',
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
         case 'PRECO_INPUT': return { ...state, preco: action.info }
         case 'CATEGORIA_INPUT': return { ...state, categoria: action.info }
         case 'ADICIONAR_CURSO': return INITIAL_STATE
+        case 'DISPARA_ALERTA_EXCLUIR' : return {...state, alertDelete : action.info}
+        case 'DISPARA_ALERTA_INCLUIRALTERAR' : return {...state, alertInsertUpdate : action.info}
         case 'SELECIONAR_CURSO' : return { ...state, 
                 _id: action.info._id,
                 codigo: action.info.codigo,

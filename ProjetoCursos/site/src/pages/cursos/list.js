@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import {
     selecionaCurso,
-    excluirCursoOld,
+    excluirCurso,
     listaCursos
 } from '../../actions/cursoActions';
 
@@ -15,7 +15,7 @@ class CursoList extends React.Component {
     }
 
     componentWillMount(){
-        this.props.listaCursos();
+        this.props.listaCursos(false, '');
     }
 
     deletar(id){
@@ -25,9 +25,7 @@ class CursoList extends React.Component {
         }
 
         if(window.confirm('Deseja deletar o curso selecionado?')){
-            this.props.excluirCursoOld(id)
-            alert("Curso deletado com sucesso.");
-            window.location.reload()
+            this.props.excluirCurso(id)
         }   
     }
 
@@ -57,6 +55,11 @@ class CursoList extends React.Component {
     }
 
     render(){
+
+        if(this.props.msg && this.props.msg !== ''){
+            alert(this.props.msg)
+        }
+
         return (
             <div>
                 <h3>Lista</h3>
@@ -83,11 +86,12 @@ class CursoList extends React.Component {
 //padrão decorator
 const mapStateToProps = state => ({
     cursos: state.curso.list,
+    msg : state.curso.alertDelete
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     selecionaCurso,
-    excluirCursoOld,
+    excluirCurso,
     listaCursos
 }, dispatch)
 

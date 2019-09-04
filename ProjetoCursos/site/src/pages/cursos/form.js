@@ -7,8 +7,8 @@ import {
     cargaHorariaInput,
     precoInput,
     categoriaInput,
-    adicionarCursoOld,
-    atualizarCursoOld,
+    adicionarCurso,
+    atualizarCurso,
     listaCursos
 } from '../../actions/cursoActions';
 
@@ -22,8 +22,8 @@ class CursoForm extends React.Component {
     salvaAtualizaCurso = (e) =>{
         e.preventDefault();
 
-        const {adicionarCursoOld, 
-            atualizarCursoOld, 
+        const {adicionarCurso, 
+            atualizarCurso, 
             _id, 
             codigo, 
             descricao, 
@@ -42,20 +42,20 @@ class CursoForm extends React.Component {
         }
 
         if(!_id || _id === ''){
-            adicionarCursoOld(codigo, descricao, cargaHoraria, preco, categoria)
-            alert('Curso adicionado com sucesso');
+            adicionarCurso(codigo, descricao, cargaHoraria, preco, categoria)
         }else{
-            atualizarCursoOld(_id, codigo, descricao, cargaHoraria, preco, categoria)
-            alert('Curso atualizado com sucesso');
+            atualizarCurso(_id, codigo, descricao, cargaHoraria, preco, categoria)
         }
-
-        window.location.reload()
     }
 
     render(){
 
-        const {codigo, descricao, cargaHoraria, preco, categoria, codigoInput, descricaoInput, cargaHorariaInput, precoInput, categoriaInput} = this.props;
+        const {msg, codigo, descricao, cargaHoraria, preco, categoria, codigoInput, descricaoInput, cargaHorariaInput, precoInput, categoriaInput} = this.props;
         const props =this.props;
+
+        if(msg && msg !== ''){
+            alert(msg)
+        }
 
         return (
         <div className="border-right pl-3 pr-3">
@@ -140,7 +140,8 @@ const mapStateToProps = state => ({
     descricao: state.curso.descricao,
     cargaHoraria: state.curso.cargaHoraria,
     preco: state.curso.preco,
-    categoria : state.curso.categoria
+    categoria : state.curso.categoria,
+    msg : state.curso.alertInsertUpdate
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -149,8 +150,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     cargaHorariaInput,
     precoInput,
     categoriaInput,
-    adicionarCursoOld,
-    atualizarCursoOld,
+    adicionarCurso,
+    atualizarCurso,
     listaCursos
 }, dispatch)
 
