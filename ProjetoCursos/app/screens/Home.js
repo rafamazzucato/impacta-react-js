@@ -1,19 +1,23 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native'
 
-export default class CompromissoHome extends React.Component{
-
+export default class Home extends React.Component{
     render(){
         return (
             <View style={[styles.container]}>
                 <View>
-                    <Text style={styles.texto}>Página inicial</Text>
+                    <Text style={styles.texto}>ABC Cursos</Text>
                 </View>
 
                 <View style={styles.botao}>
-                <Button
-                    title="Lista de Compromissos"
-                    onPress={() => this.props.navigation.navigate('Lista')} />  
+                    <Button
+                        title="Lista de Cursos"
+                        onPress={() => this.props.navigation.navigate('Cursos')} />  
+                </View>
+                <View style={styles.botao}>
+                    <Button
+                        title="Lista de Contatos"
+                        onPress={() => this.props.navigation.navigate('Contatos')} />  
                 </View>
             </View>
         )

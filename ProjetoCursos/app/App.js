@@ -2,21 +2,28 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import CompromissoLista from './screens/CompromissoLista';
-import CompromissoHome from './screens/CompromissoHome'
+import Cursos from './screens/Cursos';
+import Contatos from './screens/Contatos';
+import Home from './screens/Home'
 
 const RootStack = createStackNavigator({
   Home: {
     navigationOptions : {
       title: 'Home',
     },
-    screen: CompromissoHome
+    screen: Home
   },
-  Lista: {
+  Cursos: {
     navigationOptions : {
-      title: 'Lista',
+      title: 'Cursos',
     },
-    screen: CompromissoLista
+    screen: Cursos
+  },
+  Contatos: {
+    navigationOptions : {
+      title: 'Contatos',
+    },
+    screen: Contatos
   }
 });
 

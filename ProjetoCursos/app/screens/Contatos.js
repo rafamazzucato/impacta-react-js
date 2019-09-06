@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {View, Text, StyleSheet, SafeAreaView, FlatList} from 'react-native'
+import {View, StyleSheet, Text, FlatList, SafeAreaView} from 'react-native'
 
-export default class CompromissoLista extends React.Component{
-
+export default class Cursos extends React.Component{
+    
     initialState = {
         data: [],
         refreshing: false
@@ -20,7 +20,7 @@ export default class CompromissoLista extends React.Component{
 
     _getLista = async () => {
         this.setState({refreshing: true})
-        axios.get('http://172.16.20.43:3200/api/compromissos').then(response => {
+        axios.get('http://172.16.20.43:3200/ws/contatos').then(response => {
             this.setState({data: response.data, refreshing: false})
         }).catch(error => {
             console.log(error)
@@ -31,8 +31,7 @@ export default class CompromissoLista extends React.Component{
     render(){
         return (
             <View>
-                <Text style={styles.texto}>Lista de Compromissos</Text>
-
+                <Text style={styles.texto}>Lista de Contatos</Text>
                 <View>
                     <SafeAreaView>
                         <FlatList
@@ -45,9 +44,9 @@ export default class CompromissoLista extends React.Component{
 
                                     <View style={styles.item}>
                                         <Text style={styles.conteudo}>{item.data}</Text>
-                                        <Text style={styles.conteudo}>{item.descricao}</Text>
-                                        <Text style={styles.conteudo}>{item.responsavel}</Text>
-                                        <Text style={styles.conteudo}>{item.telefone}</Text>
+                                        <Text style={styles.conteudo}>{item.nome}</Text>
+                                        <Text style={styles.conteudo}>{item.email}</Text>
+                                        <Text style={styles.conteudo}>{item.assunto}</Text>
                                     </View>
                                 )
                             }}
